@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Home from "../views/Home";
 import EditProfile from "../views/EditProfile";
 import NewProject from "../views/NewProject";
+import SendSuggestion from "../views/SendSuggestion";
 
 Vue.use(VueRouter);
 
@@ -21,6 +22,11 @@ const routes = [
     path: "/newproject",
     name: "newproject",
     component: NewProject
+  },
+  {
+    path: "/projects/:id/sendsuggestion",
+    name: "sendsuggestion",
+    component: SendSuggestion
   }
 ];
 

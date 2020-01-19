@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home";
 import EditProfile from "../views/EditProfile";
+import NewProject from "../views/NewProject";
 
 Vue.use(VueRouter);
 
@@ -15,6 +16,11 @@ const routes = [
     path: "/profile/edit",
     name: "editprofile",
     component: EditProfile
+  },
+  {
+    path: "/newproject",
+    name: "newproject",
+    component: NewProject
   }
 ];
 

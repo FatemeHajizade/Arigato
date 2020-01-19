@@ -18,3 +18,4 @@ let db = new Sequelize(
 );
 
 module.exports = db;
+//comment

@@ -92,3 +92,47 @@ async function getSkills(req,res) {
     Skill.findAll()
         .then(skill => res.send(skill))
 }
+
+
+async function lancerProject(req,res) {
+    try{
+        let userskills = await Skill.findAll({
+        include:[{
+            model:User,
+            as:'Workers',
+            where:{
+                id:req.user.id
+            },
+            attributes:[],
+            }],
+        })
+    const Op = Sequelize.Op;
+    let a=[];
+    userskills.forEach(skill=>{
+        a.push(skill.id)
+    });
+    let projects = await Project.findAll({
+        where:{paystatus:false},
+        include:[{
+            model:Skill,
+            as:'Skills',
+            where:{
+                id : { [Op.or]:a }
+            },
+            attributes:[],  
+        }]
+    })
+    res.json(projects);
+    } 
+    catch(e){
+        console.log(e);
+        res.status(500).json({
+            message: 'Something goes wrong',
+            data: {}
+        });
+    }
+}
+
+
+
+

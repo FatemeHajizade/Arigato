@@ -17,17 +17,13 @@
             </div>
             <br />
             <div classs="ma-5">
-              <h1 dark class="font-weight-light">
-                Would you hire a freelancer?
-              </h1>
-              <h3 class="title-1 font-weight-light">
-                you can create a new project and find your freelancer soon!
-              </h3>
+              <h1 dark class="font-weight-light">Would you hire a freelancer?</h1>
+              <h3
+                class="title-1 font-weight-light"
+              >you can create a new project and find your freelancer soon!</h3>
               <v-btn depressed dark color="blue accent-2" class="ma-1">
                 <span class="mdi mdi-plus mdi-24px"></span>
-                <h3 class="subtitle-1 font-weight-light pl-1">
-                  create project
-                </h3>
+                <h3 class="subtitle-1 font-weight-light pl-1">create project</h3>
               </v-btn>
             </div>
           </v-flex>
@@ -45,29 +41,18 @@
 
     <div style="background-color: #127ebe; min-height: 120px;">
       <v-container>
-        <v-layout
-          row
-          align-center
-          justify-center
-          class="text-center white--text"
-        >
+        <v-layout row align-center justify-center class="text-center white--text">
           <v-flex xs12 sm4>
             <span class="mdi mdi-account-group mdi-48px"></span>
-            <h2 class="font-weight-light">
-              more than {{ size(freelancers) }} proficient freelancers
-            </h2>
+            <h2 class="font-weight-light">more than {{ size(freelancers) }} proficient freelancers</h2>
           </v-flex>
           <v-flex xs12 sm4>
             <span class="mdi mdi-folder-multiple mdi-48px"></span>
-            <h2 class="font-weight-light">
-              more than {{ size(projects) }} successful projects
-            </h2>
+            <h2 class="font-weight-light">more than {{ size(projects) }} successful projects</h2>
           </v-flex>
           <v-flex xs12 sm4>
             <span class="mdi mdi-format-list-bulleted-type mdi-48px"></span>
-            <h2 class="font-weight-light">
-              more than {{ size(categories) }} different fields
-            </h2>
+            <h2 class="font-weight-light">more than {{ size(categories) }} different fields</h2>
           </v-flex>
         </v-layout>
       </v-container>
@@ -92,13 +77,7 @@
               condimentum lacinia quis vel. Enim blandit volutpat maecenas
               volutpat blandit aliquam.
             </h3>
-            <v-btn
-              large
-              dark
-              color="indigo accent-4"
-              class="my-4"
-              min-width="200px"
-            >
+            <v-btn large dark color="indigo accent-4" class="my-4" min-width="200px">
               <h3 class="subtitle-1 font-weight-light">register now</h3>
             </v-btn>
           </v-flex>
@@ -118,28 +97,13 @@
       <v-container>
         <v-layout row justify-center class="text-center">
           <v-flex>
-            <h1 class="title-1 font-weight-light">
-              Some of our most popular different categories:
-            </h1>
+            <h1 class="title-1 font-weight-light">Some of our most popular different categories:</h1>
           </v-flex>
         </v-layout>
         <v-layout row justify-space-around class="mt-3 text-center">
-          <v-flex
-            xs6
-            sm4
-            md3
-            lg2
-            v-for="activity in activities"
-            :key="activity.name"
-            class="my-6"
-          >
+          <v-flex xs6 sm4 md3 lg2 v-for="activity in activities" :key="activity.name" class="my-6">
             <v-card height="80" width="170" flat>
-              <v-img
-                max-width="170"
-                max-height="80"
-                :src="activity.image"
-                class="mx-12"
-              ></v-img>
+              <v-img max-width="170" max-height="80" :src="activity.image" class="mx-12"></v-img>
             </v-card>
             <h3 class="subtitle-2 text-center">{{ activity.name }}</h3>
           </v-flex>

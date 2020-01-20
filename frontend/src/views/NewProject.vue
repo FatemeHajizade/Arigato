@@ -151,12 +151,13 @@
               </v-btn>
               <v-btn
                 class="my-5 ml-1"
+                color="blue darken-3"
                 :dark="check()"
                 :disabled="!check()"
                 v-on:click="create()"
                 :loading="load"
               >
-                <span color="blue darken-3" class="subtitle ma-1">create project</span>
+                <span class="subtitle ma-1">create project</span>
               </v-btn>
             </v-layout>
           </v-container>

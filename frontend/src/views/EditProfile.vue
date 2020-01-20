@@ -42,7 +42,7 @@
           <v-card-text>
             <v-text-field
               outlined
-              label="username"
+              label="Username"
               prepend-icon="mdi mdi-account"
               type="text"
               :placeholder="profile.username"
@@ -145,10 +145,7 @@
               label="Current password"
               outlined
               type="password"
-              @input="$v.profile.password.$touch()"
-              @blur="$v.profile.password.$touch()"
               v-model="profile.password"
-              :error-messages="passwordConfirm"
             />
             <v-text-field
               label="New password"
@@ -172,7 +169,7 @@
           <v-card-actions justify-start>
             <v-btn
               class="mb-3 mr-3"
-              color="cyan darken-3"
+              color="blue darken-2"
               v-on:click="savePassword()"
               :disabled="!turnon()"
               :dark="turnon()"
@@ -180,7 +177,7 @@
             >
               <span class="subtitle">save</span>
             </v-btn>
-            <p class="caption pr-3">{{ changePasswordMessage }}</p>
+            <p class="subtitle-2 caption pr-3">{{ changePasswordMessage }}</p>
           </v-card-actions>
         </v-card>
         <v-card class="mx-5 my-5" id="personalInfo" elevation="1" ref="form">
@@ -193,7 +190,10 @@
           <v-card-text>
             <v-layout class="mb-5">
               <v-avatar size="100" color="white" class="ml-3">
-                <img :src="profile.image" style="border-style: solid; border-width: 3px;" />
+                <img
+                  src="http://styleguide.europeana.eu/images/fpo_avatar.png"
+                  style="border-style: solid; border-width: 3px;"
+                />
               </v-avatar>
               <v-btn dark depressed class="mt-12 ml-5" color="blue">Upload image</v-btn>
               <!-- <filePicker /> -->
@@ -516,8 +516,8 @@ export default {
         birthday: this.profile.birthday,
         gender: this.profile.gender,
         address: this.profile.address,
-        rewards: this.profile.resume,
-        image: this.profile.image
+        rewards: this.profile.resume
+        // image: this.profile.image
       };
 
       axios
@@ -528,7 +528,7 @@ export default {
           this.$store.state.profile.gender = response.data.prof.gender;
           this.$store.state.profile.address = response.data.prof.address;
           this.$store.state.profile.resume = response.data.prof.rewards;
-          this.$store.state.profile.image = response.data.image;
+          // this.$store.state.profile.image = this.$store.state.profile.image;
         })
         .catch(() => {
           // console.log(error)
@@ -582,14 +582,9 @@ export default {
       }
     },
     savePassword() {
-      this.$v.profile.password.$touch();
       this.$v.newPassword.$touch();
       this.$v.repeatPassword.$touch();
-      if (
-        !this.$v.profile.password.$invalid &&
-        !this.$v.newPassword.$invalid &&
-        !this.$v.repeatPassword.$invalid
-      ) {
+      if (!this.$v.newPassword.$invalid && !this.$v.repeatPassword.$invalid) {
         this.load2 = true;
         let data = {
           currentPass: this.profile.password,
@@ -625,12 +620,16 @@ export default {
     }
   },
   created() {
+    // this.$store.state.profile.username = "";
+    // this.$store.state.profile.email = "";
+    this.$store.state.profile.password = "";
+
     axios
       .get("http://192.168.1.247:3500/api/user/getUser")
       .then(response => {
         this.$store.state.profile.username = response.data.username;
         this.$store.state.profile.email = response.data.email;
-        this.$store.state.profile.password = "";
+        // this.$store.state.profile.password = "";
         this.$store.state.profile.isFreelancer = !response.data.isclient;
         this.$store.state.profile.firstname = response.data.firstname;
         this.$store.state.profile.lastname = response.data.lastname;
@@ -647,7 +646,7 @@ export default {
         this.$store.state.profile.skills = response.data.userskills;
         this.$store.state.profile.address = response.data.prof.address;
         this.$store.state.profile.resume = response.data.prof.rewards;
-        // this.$store.state.profile.image = response.data.image
+        // this.$store.state.profile.image = this.$store.state.profile.image;
         // console.log(response);
       })
       .catch(() => {

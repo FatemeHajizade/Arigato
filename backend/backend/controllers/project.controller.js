@@ -45,7 +45,6 @@ async function createProject(req, res) {
     }
 }
 
-
 async function allProject(req,res) {
     try{
         Project.findAll({
@@ -92,7 +91,6 @@ async function getSkills(req,res) {
     Skill.findAll()
         .then(skill => res.send(skill))
 }
-
 
 async function lancerProject(req,res) {
     try{
@@ -142,7 +140,7 @@ async function sendOffer(req,res) {
             userId : req.user.id,
             projectId : req.body.projectId
         }).then(() => {
-            res.send('your project sent successfully')
+            res.send('درخواست شما با موفقیت ارسال شد')
         })
     }
     catch(e){
@@ -229,5 +227,58 @@ async function seeAllProjectCategory(req,res) {
     }
 }
 
+async function clientPaidProject(req,res) {
+    Project.findAll({where:{clientId:req.user.id,paystatus:true}})
+        .then(pro => res.send(pro))
+        .catch(err=>res.send(err))
+}
 
+async function acceptOneOffer(req,res) {
+    const Op = Sequelize.Op;
+    let thisoffer = await Offer.findOne({where:{id:req.body.id}});
+    let ids = await Offer.findAll({attributes : ['id']},{where:{projectId: thisoffer.projectId}})
+    let a=[];
+    ids.forEach(i=>{
+        if(i.id !=req.body.id){
+            a.push(i.id)
+        }
+    });
 
+    Project.update({paystatus:true, setprice:thisoffer.price, freelancerId:thisoffer.userId},{where:{id: thisoffer.projectId}})
+        .then(p => {
+            if(p)
+            {
+                Offer.update({status:true},{where:{id:req.body.id}})
+                //Offer.destroy({where:{id : { [Op.or]:a }}})
+                res.send(p)
+            }
+        })
+        .catch(err => console.log(err))
+}
+
+async function lancerProjectsToDo(req,res) {
+    Project.findAll({where:{freelancerId:req.user.id}})
+        .then(p => res.send(p))
+}
+
+async function myOffers(req , res) {
+    Offer.findAll({where:{userId:req.user.id}})
+        .then(offer=>res.send(offer));
+}
+
+module.exports = {
+    myOffers,
+    getSkills,
+    getCategories,
+    getProjectWithId,
+    seeAllProjectCategory,
+    seeAllProjectSkill,
+    createProject,
+    clientPaidProject,
+    allProject,
+    lancerProjectsToDo,
+    lancerProject,
+    clientProject,
+    acceptOneOffer,
+    sendOffer
+};

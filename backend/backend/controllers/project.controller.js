@@ -44,3 +44,25 @@ async function createProject(req, res) {
     });
     }
 }
+
+
+async function allProject(req,res) {
+    try{
+        Project.findAll({
+            include:[{
+                model:Skill,
+                as:'Skills'
+            },{model:Category,
+                as: 'Categories'}
+            ]
+        })
+            .then(pro => res.send(pro))
+    }
+    catch(e){
+        console.log(e);
+        res.status(500).json({
+            message: 'Something goes wrong',
+            data: {}
+        });
+        }
+}

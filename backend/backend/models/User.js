@@ -52,4 +52,13 @@ let User = db.define('users',{
     timestamps: true
 })
 
+User.hasMany(Project, {as: 'clientProjects' ,foreignKey: 'clientId'})
+User.hasMany(Project, {as: 'freelancerProjects' ,foreignKey: 'freelancerId'})
+User.hasMany(Offer, {as: 'Offers'});
+User.belongsToMany(Skill, { as: 'Skills', through: 'worker_skills', foreignKey: 'userId' })
+Skill.belongsToMany(User, { as: 'Workers', through: 'worker_skills', foreignKey: 'skillId' })
+User.hasOne(Userprofile,{as: 'freelancer_profile',foreignKey: 'freelancerId'})
+Userprofile.belongsTo(User,{foreignKey: 'freelancerId'});
+Userprofile.belongsTo(User,{foreignKey: 'clientId'});
+
 module.exports = User;

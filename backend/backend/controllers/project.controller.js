@@ -66,3 +66,17 @@ async function allProject(req,res) {
         });
         }
 }
+
+async function getProjectWithId(req,res){
+    
+    Project.findOne({
+        include:[{
+            model:Skill,
+            as:'Skills'
+        },{model:Category,
+            as: 'Categories'}],
+        where: { id: req.body.id}
+    })
+    .then(project => res.send(project))
+}
+

@@ -201,5 +201,33 @@ async function seeAllProjectSkill(req,res) {
     }
 }
 
+async function seeAllProjectCategory(req,res) {
+    try{
+    const Op = Sequelize.Op;
+    let a=[];
+    req.body.c.forEach(category=>{
+        a.push(category.name)
+    });
+    let projects = await Project.findAll({
+        include:[{
+            model:Category,
+            as:'Categories',
+            where:{
+                name : { [Op.or]:a }
+            },
+            attributes:[],  
+        }]
+    })
+    res.json(projects);
+    } 
+    catch(e){
+        console.log(e);
+        res.status(500).json({
+            message: 'Something goes wrong',
+            data: {}
+        });
+    }
+}
+
 
 

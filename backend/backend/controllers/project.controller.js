@@ -140,7 +140,7 @@ async function sendOffer(req,res) {
             userId : req.user.id,
             projectId : req.body.projectId
         }).then(() => {
-            res.send('درخواست شما با موفقیت ارسال شد')
+            res.send('your offer accepted successsfully')
         })
     }
     catch(e){

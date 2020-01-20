@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home";
+import Register from "../components/Register";
 import EditProfile from "../views/EditProfile";
 import NewProject from "../views/NewProject";
 import SendSuggestion from "../views/SendSuggestion";
@@ -12,6 +13,11 @@ const routes = [
     path: "/",
     name: "home",
     component: Home
+  },
+  {
+    path: "/signin",
+    name: "signin",
+    component: Register
   },
   {
     path: "/profile/edit",
@@ -27,7 +33,7 @@ const routes = [
     path: "/projects/:id/sendsuggestion",
     name: "sendsuggestion",
     component: SendSuggestion
-  }
+  },
 ];
 
 const router = new VueRouter({

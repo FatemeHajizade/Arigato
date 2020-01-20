@@ -154,6 +154,24 @@ async function sendOffer(req,res) {
     }
 } 
 
+async function clientProject(req,res) {
+    try{
+        let clientprojects = await Project.findAll({
+            include:[{
+                model:Offer,
+                as:'Offers' 
+            }],where: {clientId:req.user.id}
+        })
+    res.json(clientprojects);
+    } 
+    catch(e){
+        console.log(e);
+        res.status(500).json({
+            message: 'Something goes wrong',
+            data: {}
+        });
+    }
+}
 
 
 

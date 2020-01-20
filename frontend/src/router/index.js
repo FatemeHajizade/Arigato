@@ -4,6 +4,7 @@ import Home from "../views/Home";
 import Register from "../components/Register";
 import EditProfile from "../views/EditProfile";
 import NewProject from "../views/NewProject";
+import Profile from "../views/Profile";
 import Login from "../components/Login";
 import SendSuggestion from "../views/SendSuggestion";
 
@@ -29,6 +30,11 @@ const routes = [
     path: "/profile/edit",
     name: "editprofile",
     component: EditProfile
+  },
+    {
+    path: "/profile/:id",
+    name: "profile",
+    component: Profile
   },
   {
     path: "/newproject",

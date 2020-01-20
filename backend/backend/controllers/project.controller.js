@@ -80,3 +80,15 @@ async function getProjectWithId(req,res){
     .then(project => res.send(project))
 }
 
+async function getCategories(req,res) {
+    Category.findAll()
+        .then(cat => 
+            console.log("request for categories" + cat.length)||
+            res.send(cat))
+
+}
+
+async function getSkills(req,res) {
+    Skill.findAll()
+        .then(skill => res.send(skill))
+}

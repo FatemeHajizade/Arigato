@@ -133,6 +133,27 @@ async function lancerProject(req,res) {
     }
 }
 
+async function sendOffer(req,res) {
+    try{
+        Offer.create({
+            comment : req.body.comment,
+            timeneeded : req.body.timeneeded,
+            price : req.body.price,
+            userId : req.user.id,
+            projectId : req.body.projectId
+        }).then(() => {
+            res.send('your project sent successfully')
+        })
+    }
+    catch(e){
+        console.log(e);
+        res.status(500).json({
+            message: 'Something goes wrong',
+            data: {}
+        });
+    }
+} 
+
 
 
 

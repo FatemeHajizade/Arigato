@@ -84,3 +84,12 @@ async function createUser(req, res) {
     });
 }
 }
+
+function confirmingEmail(req,res) {
+    
+    verifyJwtEmail(req.params.token)
+        .then(user => {
+            return User.update({confirmed : true},{where:{id : user.id}})
+        })
+        .catch(err => console.log(err))
+}

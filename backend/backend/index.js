@@ -16,13 +16,13 @@ async function main(){
 };
 main();
 
-// db.sync()
-//     .then( () => {
-//         app.listen(2854, () => {
-//             console.log('Server started on http://localhost:27017/')
-//         })
+db.sync()
+    .then( () => {
+        app.listen(2854, () => {
+            console.log('Server started on http://localhost:27017/')
+        })
         
-//     })
-//     .catch(err => {
-//         console.log(err);
-//     })
+    })
+    .catch(err => {
+        console.log(err);
+    })

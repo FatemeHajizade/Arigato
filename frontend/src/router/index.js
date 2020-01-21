@@ -5,6 +5,7 @@ import Register from "../components/Register";
 import EditProfile from "../views/EditProfile";
 import NewProject from "../views/NewProject";
 import Profile from "../views/Profile";
+import Dashboard from "../views/Dashboard";
 import Login from "../components/Login";
 import SendSuggestion from "../views/SendSuggestion";
 
@@ -20,6 +21,11 @@ const routes = [
     path: "/signin",
     name: "signin",
     component: Register
+  },
+    {
+    path: "/dashboard",
+    name: "dashboard",
+    component: Dashboard
   },
    {
     path: "/login",

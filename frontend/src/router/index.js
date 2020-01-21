@@ -8,6 +8,7 @@ import Profile from "../views/Profile";
 import Dashboard from "../views/Dashboard";
 import Login from "../components/Login";
 import SendSuggestion from "../views/SendSuggestion";
+import Freelancers from "../views/Freelancers";
 
 Vue.use(VueRouter);
 
@@ -22,12 +23,12 @@ const routes = [
     name: "signin",
     component: Register
   },
-    {
+  {
     path: "/dashboard",
     name: "dashboard",
     component: Dashboard
   },
-   {
+  {
     path: "/login",
     name: "login",
     component: Login
@@ -37,7 +38,7 @@ const routes = [
     name: "editprofile",
     component: EditProfile
   },
-    {
+  {
     path: "/profile/:id",
     name: "profile",
     component: Profile
@@ -52,6 +53,11 @@ const routes = [
     name: "sendsuggestion",
     component: SendSuggestion
   },
+  {
+    path: "/freelancers",
+    name: "freelancers",
+    component: Freelancers
+  }
 ];
 
 const router = new VueRouter({

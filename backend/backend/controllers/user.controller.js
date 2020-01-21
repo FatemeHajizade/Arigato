@@ -118,7 +118,7 @@ function updateUser(req,res) {
 }
 
 function loginUser(req,res) {
-    console.log(req.body.password);
+    //console.log(req.body.password);
     if(!req.body.password){
         res.send("Did not supply password");
     }
@@ -215,7 +215,7 @@ async function getUser(req,res){
 
 async function getUserWithId(req,res){
     
-    console.log("user request "+ req)
+    //console.log("user request "+ req)
     User.findOne({
         where: { id: req.body.id}
     })
@@ -258,7 +258,7 @@ function freelancers(req,res) {
         where:{isclient:false}
     })
         .then(us => 
-            console.log("request for freeLancers : " + us)||
+            //console.log("request for freeLancers : " + us)||
             res.send(us))
         .catch(err => console.log(err))
 }

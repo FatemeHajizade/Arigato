@@ -82,7 +82,7 @@ async function getProjectWithId(req,res){
 async function getCategories(req,res) {
     Category.findAll()
         .then(cat => 
-            console.log("request for categories" + cat.length)||
+            //console.log("request for categories" + cat.length)||
             res.send(cat))
 
 }

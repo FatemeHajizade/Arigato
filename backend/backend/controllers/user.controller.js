@@ -93,3 +93,26 @@ function confirmingEmail(req,res) {
         })
         .catch(err => console.log(err))
 }
+
+function updateUser(req,res) {
+    let {image,firstname,lastname,jobtitle,username,email,isclient} = req.body;
+    User.findOne({where: {id:req.user.id}}).then(user=>{
+            User.update({image:image,firstname:firstname,isclient:isclient,email:email,username:username,lastname:lastname,jobtitle:jobtitle},{where:{id: req.user.id}})
+        .then(()=>{
+            return User.findByPk(req.user.id); 
+        })
+        .then(user =>{
+            if((!user.isclient)){
+                for(let skilll of req.body.skills){
+                    Skill.findOne({where:{name:skilll.name}})
+                    .then(skil => {
+                        return user.addSkill(skil)
+                    })
+                    .catch(err => console.log(err));
+                }
+            }
+            return res.send(user);
+        })
+        .catch(err => {console.log(err);})
+        })
+}

@@ -9,6 +9,7 @@ import Dashboard from "../views/Dashboard";
 import Login from "../components/Login";
 import SendSuggestion from "../views/SendSuggestion";
 import Freelancers from "../views/Freelancers";
+import Projects from "../views/Projects";
 
 Vue.use(VueRouter);
 
@@ -57,6 +58,11 @@ const routes = [
     path: "/freelancers",
     name: "freelancers",
     component: Freelancers
+  },
+  {
+    path: "/projects",
+    name: "projects",
+    component: Projects
   }
 ];
 

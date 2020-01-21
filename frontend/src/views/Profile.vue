@@ -49,7 +49,9 @@
               <v-list-item>
                 <v-list-item-title>
                   <span class="mdi mdi-clipboard-text"></span>
-                  <span v-if="!isEmpty(seeProf.skills)" class="pl-2">{{ seeProf.skills }}</span>
+                  <span v-if="!isEmpty(seeProf.skills)" class="pl-2">
+                    <span v-for="skill in seeProf.skills" :key="skill" class="mx-1">{{ skill }},</span>
+                  </span>
                   <span v-else class="pl-2 subtitle-2 font-weight-light">There is no information</span>
                 </v-list-item-title>
               </v-list-item>

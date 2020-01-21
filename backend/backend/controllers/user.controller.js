@@ -290,3 +290,30 @@ function freelancerWithSpecSkil(req,res) {
             });
         }
 }
+
+function editeProfile(req,res) {
+    if(req.user.isclient === true){
+        Userprofile.update({
+            address: req.body.address,
+            education: req.body.education,
+            rewards: req.body.rewards,
+            birthday: req.body.birthday,
+            gender: req.body.gender
+            
+        },{where:{clientId : req.user.id}})
+        .then(p => res.send(p))
+        .catch(err => res.send(err))
+    }
+    else if(req.user.isclient === false){
+        Userprofile.update({
+            address: req.body.address,
+            education: req.body.education,
+            rewards: req.body.rewards,
+            birthday: req.body.birthday,
+            gender: req.body.gender
+            
+        },{where:{freelancerId : req.user.id}})
+        .then(p => res.send(p))
+        .catch(err => res.send(err))
+    }
+}

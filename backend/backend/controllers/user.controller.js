@@ -317,3 +317,47 @@ function editeProfile(req,res) {
         .catch(err => res.send(err))
     }
 }
+
+async function changePass(req,res) {
+    let {currentPass,newPass,confirmNewPass} = req.body;
+    let hashNewPass = await bcrypt.hash(newPass , 12)
+    User.findOne({where: {id:req.user.id}}).then(user=>{
+        bcrypt.compare(currentPass,user.password)
+                .then(bol => {
+                    if(bol){
+                        if(newPass!==confirmNewPass){
+                            res.send("new passwords arent similar");
+                        }
+                        else{
+                            User.update({password:hashNewPass},{where:{id:user.id}}).then(res.send("** password changed successfully **"))
+                        }
+                    }
+                    else{
+                        res.send("wrong password!!")
+                    }
+                })
+    })
+        .then(()=>{
+            return User.findByPk(req.user.id); 
+        })
+        .catch(err => {console.log(err);})
+}
+
+async function allUsers(req,res) {
+    User.findAll().then(users => res.send(users))
+}
+
+module.exports = {
+    createUser,
+    getUserWithId,
+    getUser,
+    editeProfile,
+    changePass,
+    updateUser,
+    freelancers,
+    freelancerWithSpecSkil,
+    loginUser,
+    confirmingEmail,
+    //imageUser,
+    allUsers
+};

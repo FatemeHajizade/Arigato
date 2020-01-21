@@ -248,3 +248,45 @@ async function getUserWithId(req,res){
         }
     })
 }
+
+function freelancers(req,res) {
+    User.findAll({
+        include:[{
+            model:Userprofile,
+            as:'freelancer_profile'
+        }],
+        where:{isclient:false}
+    })
+        .then(us => 
+            console.log("request for freeLancers : " + us)||
+            res.send(us))
+        .catch(err => console.log(err))
+}
+
+function freelancerWithSpecSkil(req,res) {
+    try{
+        const Op = Sequelize.Op;
+        let a=[];
+        req.body.s.forEach(skill=>{
+            a.push(skill.name)
+        });
+        User.findAll({
+            include:[{
+
+                model:Skill,
+                as:'Skills',
+                where:{
+                    name : { [Op.or]:a }
+                },
+                attributes:[],  
+            }]
+        }).then(us => res.send(us))
+        } 
+        catch(e){
+            console.log(e);
+            res.status(500).json({
+                message: 'Something goes wrong',
+                data: {}
+            });
+        }
+}

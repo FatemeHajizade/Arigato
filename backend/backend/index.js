@@ -16,6 +16,8 @@ async function main(){
 };
 main();
 
+//adding skills and categories have done here once and stored in db
+
 db.sync()
     .then( () => {
         app.listen(2854, () => {

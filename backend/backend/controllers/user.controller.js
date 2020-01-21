@@ -179,3 +179,36 @@ function loginUser(req,res) {
     })
 }
 
+async function getUser(req,res){
+    User.findOne({
+        where: { id: req.user.id}
+    })
+    .then(us => {
+        if(us){
+            async function a(){
+                let prof2 = await Userprofile.findOne({where:{clientId : us.id}});
+                let prof1 = await Userprofile.findOne({where:{freelancerId : us.id}});
+                let userskills = await Skill.findAll({
+                include:[{
+                        model:User,
+                        as:'Workers',
+                        where:{
+                            id:us.id
+                            },
+                            attributes:[],
+                            }],
+                        });
+                if(us.isclient){
+                    let prof = prof2;
+                    let userJson = {...us.get(),prof,userskills};
+                    delete userJson.password;
+                    res.json(userJson);}
+                else if(!us.isclient){
+                    let prof = prof1;
+                    let userJson = {...us.get(),prof,userskills};
+                    delete userJson.password;
+                    res.json(userJson);}}
+                    a();
+        }
+    })
+}

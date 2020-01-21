@@ -116,3 +116,65 @@ function updateUser(req,res) {
         .catch(err => {console.log(err);})
         })
 }
+
+function loginUser(req,res) {
+    console.log(req.body.password);
+    if(!req.body.password){
+        res.send("Did not supply password");
+    }
+    if(!req.body.email){
+        res.send("Did not supply email");
+    }
+
+    User.findOne({
+        where: { email: req.body.email}
+    })
+    .then(us => {
+        if(us){
+            // if(us.confirmed===false){
+            //     res.send('please confirm your email')
+            // }
+            //else{
+                bcrypt.compare(req.body.password,us.password)
+                .then(bol => {
+                    if(bol){
+                        async function a(){
+                            let prof2 = await Userprofile.findOne({where:{clientId : us.id}});
+                            let prof1 = await Userprofile.findOne({where:{freelancerId : us.id}});
+                            let token = await createJwt(us.get());
+                            let userskills = await Skill.findAll({
+                                include:[{
+                                    model:User,
+                                    as:'Workers',
+                                    where:{
+                                        id:us.id
+                                    },
+                                    attributes:[],
+                                    }],
+                                });
+
+                            if(us.isclient){
+                                let prof = prof2;
+                                let userJson = {...us.get(),token,prof,userskills};
+                                delete userJson.password;
+                                res.json(userJson);}
+                            else if(!us.isclient){
+                                let prof = prof1;
+                                let userJson = {...us.get(),token,prof,userskills};
+                                delete userJson.password;
+                                res.json(userJson);}
+                            }
+                            a();
+                    }
+                    else{
+                    res.send("ab")
+                    }
+                })
+                .catch(err => res.send(err))
+            //}
+        }
+        else{
+            res.send("ab");
+        }
+    })
+}

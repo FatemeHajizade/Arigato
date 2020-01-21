@@ -7,7 +7,7 @@ let Offer = db.define('offer',{
         primaryKey: true,
         autoIncrement: true
     },
-    comment: Sequelize.STRING,
+    comment: Sequelize.TEXT,
     timeneeded: Sequelize.STRING,
     price: Sequelize.INTEGER,
     status: {
